@@ -1,25 +1,28 @@
 package org.learning.springlamiapizzeriacrud.model;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 import java.math.BigDecimal;
-import java.net.URL;
 
-public class pizza {
+
+@Entity
+@Table(name = "pizza")
+public class Pizza {
 
    @Id
+   @GeneratedValue(strategy = GenerationType.IDENTITY)
    private Integer id;
 
    @Column(nullable = false)
    private String name;
 
-    @Column
+    @Column(nullable = false)
     private String description;
 
-    private BigDecimal price;
+  @Column(nullable = false)
+  private BigDecimal price;
 
-    private URL imagine;
+    private String url;
 
     public Integer getId() {
         return id;
@@ -53,11 +56,11 @@ public class pizza {
         this.price = price;
     }
 
-    public URL getImagine() {
-        return imagine;
+    public String getUrl() {
+        return url;
     }
 
-    public void setImagine(URL imagine) {
-        this.imagine = imagine;
+    public void setImagine(String url) {
+        this.url = url;
     }
 }
