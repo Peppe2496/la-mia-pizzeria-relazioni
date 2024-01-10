@@ -1,6 +1,9 @@
 package org.learning.springlamiapizzeriacrud.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 
 import java.math.BigDecimal;
 
@@ -14,12 +17,17 @@ public class Pizza {
    private Integer id;
 
    @Column(nullable = false)
+   @NotEmpty
+
    private String name;
 
     @Column(nullable = false)
+    @Lob
+
     private String description;
 
   @Column(nullable = false)
+  @NotNull
   private BigDecimal price;
 
     private String url;
