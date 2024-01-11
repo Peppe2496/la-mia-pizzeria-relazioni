@@ -30,6 +30,7 @@
             <td th:text="${pizza.name}"></td>
             <td th:text="${pizza.price}"></td>
             <td><a class="btn btn-primary" th:href="@{/pizza/show/{id}(id=${pizza.id})}">Details</a></td>
+            <td><a class="btn btn-primary" th:href="@{/pizza/edit/{id}(id=${pizza.id})}">Edit</a></td>
 
 
             <td>
