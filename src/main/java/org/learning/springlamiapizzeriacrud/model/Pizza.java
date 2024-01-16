@@ -68,7 +68,7 @@ public class Pizza {
         return url;
     }
 
-    public void setImagine(String url) {
+    public void setUrl(String url) {
         this.url = url;
     }
 }

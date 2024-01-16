@@ -29,12 +29,17 @@
         <tr th:each="pizza : ${listofpizzas}">
             <td th:text="${pizza.name}"></td>
             <td th:text="${pizza.price}"></td>
-            <td><a class="btn btn-primary" th:href="@{/pizza/show/{id}(id=${pizza.id})}">Details</a></td>
-            <td><a class="btn btn-primary" th:href="@{/pizza/edit/{id}(id=${pizza.id})}">Edit</a></td>
-
-
             <td>
-
+                <div class="d-flex">
+                <a class="btn btn-primary mx-2"  th:href="@{/pizza/show/{id}(id=${pizza.id})}">Details</a>
+                <a class="btn btn-primary mx-2" th:href="@{/pizza/edit/{id}(id=${pizza.id})}">Edit</a>
+                <form
+                        th:action="@{/pizza/delete/{id}(id=${pizza.id})}"
+                        method="post"
+                >
+                    <button type="submit" class="btn btn-danger mx-2">Delete</button>
+                </form>
+                </div>
             </td>
         </tr>
         </tbody>
