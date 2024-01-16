@@ -19,6 +19,35 @@
             <p th:text="${pizza.description}"></p>
         </div>
     </div>
+
+    <section class="mt-5">
+        <h3>
+            <span>Promos</span>
+
+            <a th:href="@{/promos/create(pizzaId=${pizza.id})}" class="btn btn-primary">+</a>
+        </h3>
+        <table class="table" th:if="${pizza.promos.size() > 0}">
+            <thead>
+            <tr>
+                <th>Start Date</th>
+                <th>Expire Date</th>
+                <th>Name</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="prm : ${pizza.promos}">
+                <td th:text="${prm.startDate}"></td>
+                <td th:text="${prm.expireDate}"></td>
+                <td th:text="${prm.title}"></td>
+
+            </tr>
+            </tbody>
+        </table>
+        <div class="alert alert-info" th:if="${pizza.promos.size() == 0}">
+            Questa pizza non ha nessuna offerta.
+        </div>
+    </section>
+
     <div>
         <a th:href="@{/pizza}">Return to list</a>
     </div>
