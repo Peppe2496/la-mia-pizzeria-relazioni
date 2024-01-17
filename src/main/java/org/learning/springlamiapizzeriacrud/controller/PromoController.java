@@ -8,11 +8,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.time.LocalDate;
 import java.util.Optional;
@@ -49,6 +48,42 @@ public class PromoController {
 
         Promo storedPromo = promoRepository.save(formPromo);
         return "redirect:/pizza/show/" + storedPromo.getPizza().getId();
+    }
+
+    @GetMapping("/edit/{id}")
+    public String edit(@PathVariable Integer id, Model model) {
+        Optional<Promo> result = promoRepository.findById(id);
+        if (result.isPresent()) {
+            model.addAttribute("promo", result.get());
+            return "promos/edit";
+        } else {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Promo with id" + id + "not found");
+        }
+    }
+
+
+    @PostMapping("/edit/{id}")
+    public String update(@PathVariable Integer id, Promo formPromo,BindingResult bindingResult) {
+
+            if (bindingResult.hasErrors()){
+                return "promos/edit";
+            }
+            Promo updatePromo = promoRepository.save(formPromo);
+
+            return "redirect:/pizza/show/" + updatePromo.getPizza().getId();
+
+    }
+
+    @PostMapping("/delete/{id}")
+    public String delete(@PathVariable Integer id, RedirectAttributes redirectAttributes){
+        Optional<Promo> result = promoRepository.findById(id);
+        if (result.isPresent()){
+            Promo promoDelete = result.get();
+            promoRepository.delete(promoDelete);
+            return "redirect:/pizza/show/" + promoDelete.getPizza().getId();
+        }else {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "promo with id" + id + "not found");
+        }
     }
 
  }
