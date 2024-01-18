@@ -3,8 +3,6 @@ package org.learning.springlamiapizzeriacrud.model;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
-
 import java.math.BigDecimal;
 import java.util.List;
 
@@ -19,12 +17,10 @@ public class Pizza {
 
    @Column(nullable = false)
    @NotEmpty
-
    private String name;
 
     @Column(nullable = false)
     @Lob
-
     private String description;
 
   @Column(nullable = false)
@@ -35,6 +31,9 @@ public class Pizza {
 
     @OneToMany(mappedBy = "pizza")
     private List<Promo> promos;
+
+    @ManyToMany
+    private List<Ingredient> ingredients;
 
     public List<Promo> getPromos() {
         return promos;
@@ -82,5 +81,13 @@ public class Pizza {
 
     public void setUrl(String url) {
         this.url = url;
+    }
+
+    public List<Ingredient> getIngredients() {
+        return ingredients;
+    }
+
+    public void setIngredients(List<Ingredient> ingredients) {
+        this.ingredients = ingredients;
     }
 }
